@@ -1,5 +1,8 @@
 # DatePlanner
 
+Signin/SignUp Page
+    React.js based, uses material ui template.
+
 Home Page
 
 Entry Forms
