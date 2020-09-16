@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,7 +13,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { render } from '@testing-library/react';
 import { Link} from 'react-router-dom';
-
 
 
 //I used material ui sign in template. Didn't make any changes at all.
@@ -65,20 +64,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
+  //TODO explore how this worky. Hooks. Lol.
+  const [email, setEmail] = useState("");
+  
+  //TODO DO I NEED TO ENCRYPT THIS?
+  const [pw, setPW] = useState("");
+
+  //TODO CALL REST API for signing in.
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    
+    //email validation
+    if(validateEmail(evt) == false){
+      alert(`illegal stuff going on`)
+      //TODO focus on text box with red border
+    }
+    else{
+      alert(`Submitting Name ${email} and password is ${pw}`)
+      alert(`logged in`)
+      //TODO call rest api.
+    }
+  
+
+}
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
+        <Typography component="h1" variant="h5">
+          Welcome to DatePlanner 
+        </Typography>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -89,6 +111,8 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={e=>setEmail(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -100,6 +124,8 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={pw}
+            onChange={e=>setPW(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
