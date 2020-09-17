@@ -38,12 +38,6 @@ function Copyright() {
     </Typography>
   );
 }
-//Added Email validation
-function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-  }
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -75,19 +69,7 @@ export default function SignIn(props) {
   //TODO CALL REST API for signing in.
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    
-    //email validation
-    if(validateEmail(evt) == false){
-      alert(`illegal stuff going on`)
-      //TODO focus on text box with red border
-    }
-    else{
-      alert(`Submitting Name ${email} and password is ${pw}`)
-      alert(`logged in`)
-      //TODO call rest api.
-    }
-  
-
+    //TODO add fetch call
 }
 
   return (
@@ -100,7 +82,7 @@ export default function SignIn(props) {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form}onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -109,6 +91,7 @@ export default function SignIn(props) {
             id="email"
             label="Email Address"
             name="email"
+            type="email"
             autoComplete="email"
             autoFocus
             value={email}
